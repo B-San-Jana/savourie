@@ -1,0 +1,1392 @@
+ <!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Savourie Restaurant</title>
+    <!-- Normalize.css for consistent rendering across browsers -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Felipa for headings, Merienda for body text -->
+    <link href="https://fonts.googleapis.com/css2?family=Felipa&family=Merienda:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Universal Box-Sizing for consistent layout */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Updated Color Palette: Apricot and Black Theme */
+            --primary-color: #000000; /* Pure Black for main background, navbar, footer */
+            --secondary-color: #1a1a1a; /* Very Dark Grey for section backgrounds, cards */
+            --accent-color: #ff9966; /* Vibrant Apricot for accents, buttons, titles */
+            --text-light: #fdf5e6; /* Light Apricot/Cream for general text on dark backgrounds */
+        }
+
+        body {
+            font-family: 'Merienda', cursive, sans-serif; /* Merienda for body text with fallbacks */
+            font-size: calc(1rem + 2px); /* Increased font size by 2px (assuming 1rem base) */
+            background-color: var(--primary-color) !important; /* Whole background is black */
+            color: var(--text-light); /* Default text color is light */
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 120px; /* Space for the footer */
+        }
+
+        /* Felipa Font for Headings */
+        h1, h2, h5, .navbar-brand, .modal-title {
+            font-family: 'Felipa', cursive, serif; /* Felipa for headings with fallbacks */
+            color: var(--accent-color); /* Headings in apricot color */
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Darker shadow for black background */
+        }
+
+        .navbar-brand {
+            color: var(--accent-color); /* Navbar brand in apricot */
+        }
+        .navbar-nav .nav-link {
+            color: var(--text-light); /* Nav links light */
+        }
+        .navbar-nav .nav-link:hover {
+            color: var(--accent-color); /* Nav links apricot on hover */
+        }
+
+
+        .hero {
+            background: var(--primary-color) linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://picsum.photos/seed/restaurant/1200/800.jpg'); /* Darker overlay for black background */
+            background-size: cover;
+            background-position: center;
+            color: white; /* Keep hero text white for contrast */
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color); /* Headings in apricot color */
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        .card {
+            margin-bottom: 20px;
+            border: none;
+            background-color: #1a1a1a;
+            background-color: var(--secondary-color); /* Dark grey for cards */
+            color: var(--text-light); /* Light text on dark cards */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Darker shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* Darker shadow on hover */
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color); /* Apricot */
+            border-color: var(--accent-color); /* Apricot */
+            color: var(--primary-color); /* Text color for primary button (black) */
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #e68a5c; /* Slightly darker apricot on hover */
+            border-color: #e68a5c;
+            color: var(--primary-color);
+        }
+
+        .btn-outline-light { /* For "Reserve Now" button in Hero */
+            border-color: white;
+            color: white;
+        }
+        .btn-outline-light:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-color: white;
+        }
+
+        .testimonial {
+            background-color: var(--secondary-color); /* Dark grey for testimonials */
+            color: var(--text-light); /* Light text */
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '\201C';
+            font-size: 4rem;
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            color: var(--accent-color);
+            opacity: 0.2;
+        }
+
+        .price-tag {
+            background-color: var(--accent-color);
+            color: var(--primary-color); /* Text color for price tag (black) */
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        footer {
+            background-color: var(--primary-color) !important;
+            color: var(--text-light); /* Light text for footer */
+            padding: 30px 0;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
+
+        /* Form Validation Styles */
+        .form-floating label {
+            color: #aaa; /* Lighter label color for dark background */
+        }
+
+        .invalid-feedback {
+            display: none;
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+
+        .is-invalid .form-control {
+            border-color: #dc3545;
+        }
+
+        .is-valid .form-control {
+            border-color: #28a745;
+        }
+
+        .validation-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+            display: none;
+        }
+
+        .is-invalid ~ .validation-icon.invalid-icon {
+            color: #dc3545;
+            display: block;
+        }
+
+        .is-valid ~ .validation-icon.valid-icon {
+            color: #28a745;
+            display: block;
+        }
+
+        .password-strength {
+            height: 5px;
+            margin-top: 5px;
+            border-radius: 5px;
+            background-color: #333; /* Darker background for strength bar */
+            overflow: hidden;
+        }
+
+        .password-strength-meter {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        .strength-weak {
+            background-color: #dc3545;
+            width: 33%;
+        }
+
+        .strength-medium {
+            background-color: #ffc107;
+            width: 66%;
+        }
+
+        .strength-strong {
+            background-color: #28a745;
+            width: 100%;
+        }
+
+        .validation-message {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        .validation-error {
+            color: #dc3545;
+        }
+
+        .validation-success {
+            color: #28a745;
+        }
+
+        /* Toast notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1060;
+        }
+
+        .toast {
+            background-color: var(--secondary-color); /* Dark toast background */
+            color: var(--text-light); /* Light toast text */
+        }
+
+        .toast-success {
+            border-left: 4px solid #28a745;
+        }
+
+        .toast-error {
+            border-left: 4px solid #dc3545;
+        }
+
+        /* Password visibility toggle */
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            cursor: pointer;
+            color: #aaa; /* Lighter icon color */
+        }
+
+        .password-toggle:hover {
+            color: #ccc;
+        }
+
+        /* Enhanced login/register button */
+        .auth-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .login-btn {
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white on black */
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .login-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .login-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Message section improvements */
+        #contact {
+            background-color: var(--secondary-color); /* Dark grey background for contact form */
+            backdrop-filter: blur(5px); /* Still useful for subtle effect */
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #contact .form-control {
+            background-color: #333; /* Darker input background */
+            border: 1px solid #555; /* Darker border */
+            color: var(--text-light); /* Light text in inputs */
+            transition: all 0.3s ease;
+        }
+        #contact .form-control::placeholder { /* Placeholder text color */
+            color: #888;
+        }
+
+        #contact .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.25rem rgba(255, 153, 102, 0.25);
+            background-color: #444; /* Slightly lighter on focus */
+        }
+
+        #contact .form-floating {
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #contact {
+                padding: 1.5rem;
+            }
+
+            .form-floating {
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        /* Specific section background adjustments */
+        .bg-light { /* Used for Menu, Testimonials, Contact sections */
+            background-color: var(--secondary-color) !important; /* Override Bootstrap's bg-light */
+        }
+        .py-5 { /* Ensure padding is consistent */
+            padding-top: 3rem !important;
+            padding-bottom: 3rem !important;
+        }
+        .badge { /* Adjust badge colors for visibility on dark background */
+            color: var(--primary-color) !important; /* Black text on badges */
+        }
+        .badge.bg-success {
+            background-color: #4CAF50 !important; /* Green for vegetarian */
+        }
+        .badge.bg-primary {
+            background-color: #2196F3 !important; /* Blue for continental */
+        }
+        .badge.bg-warning {
+            background-color: #FFC107 !important; /* Yellow for desserts */
+        }
+        .text-dark { /* Ensure text is visible on badges */
+            color: var(--primary-color) !important;
+        }
+        .text-danger { /* For heart icon in footer */
+            color: #dc3545 !important;
+        }
+
+        /* Login/Register Modal specific styles */
+        .modal-content {
+            background-color: var(--secondary-color); /* Dark background for modal content */
+            color: var(--text-light); /* Light text for modal */
+        }
+        .modal-header {
+            border-bottom-color: #333; /* Darker border */
+        }
+        .modal-footer {
+            border-top-color: #333; /* Darker border */
+        }
+        .btn-close {
+            filter: invert(1); /* Make close button white on dark background */
+        }
+        .form-check-label {
+            color: var(--text-light); /* Ensure checkbox label is light */
+        }
+        .text-center p { /* "Or sign up with:" text */
+            color: #888; /* Darken this specific text */
+        }
+        .btn-outline-primary { /* Google/Facebook buttons */
+            border-color: #555;
+            color: #ccc;
+        }
+        .btn-outline-primary:hover {
+            background-color: #333;
+            border-color: #777;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast notifications -->
+    <div class="toast-container"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-utensils me-2"></i>Savourie</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#specials">Specials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#reservations">Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+                <!-- Enhanced Login/Register Button -->
+                <button class="btn auth-button login-btn me-2" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <i class="fas fa-user-circle"></i> <span>Login</span>
+                </button>
+                <button class="btn btn-outline-light" type="button" data-bs-toggle="modal" data-bs-target="#registerModal">
+                    Register
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Savourie: Culinary Excellence</h1>
+            <p class="lead">Savour the harmony of global cuisine and sweet indulgences, expertly crafted for the discerning palate</p>
+            <div class="mt-4">
+                <a href="#menu" class="btn btn-primary btn-lg"><i class="fas fa-book-open me-2"></i>View Menu</a>
+                <a href="#reservations" class="btn btn-outline-light btn-lg ms-2"><i class="fas fa-calendar-check me-2"></i>Reserve Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2 class="section-title">Our Story</h2>
+                    <p class="lead">Experience culinary artistry like never before. At Savourie, we craft each dish with passion, using locally-sourced ingredients to bring you the freshest flavors.</p>
+                    <div class="mt-3">
+                        <span class="badge bg-success me-2"><i class="fas fa-leaf me-1"></i>Vegetarian</span>
+                        <span class="badge bg-primary me-2"><i class="fas fa-globe-europe me-1"></i>Continental</span>
+                        <span class="badge bg-warning text-dark"><i class="fas fa-cookie me-1"></i>Desserts</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="images/mainpic.jpg" alt="Restaurant Food" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">Our Menu</h2>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="images/vegetarian.jpg" class="card-img-top" alt="Vegetarian">
+                        <div class="card-body">
+                            <h5 class="card-title">Vegetarian Delights</h5>
+                            <p class="card-text">Fresh garden vegetables prepared with innovative techniques.</p>
+                            <span class="price-tag">$25</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="images/continental.jpg" class="card-img-top" alt="Continental">
+                        <div class="card-body">
+                            <h5 class="card-title">Continental Cuisine</h5>
+                            <p class="card-text">Rich flavors from European culinary traditions.</p>
+                            <span class="price-tag">$30</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="images/desserts.jpg" class="card-img-top" alt="Desserts">
+                        <div class="card-body">
+                            <h5 class="card-title">Sweet Finale</h5>
+                            <p class="card-text">Decadent desserts to complete your dining experience.</p>
+                            <span class="price-tag">$35</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specials Section -->
+    <section id="specials" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Daily Specials</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card special-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">July 16, 2025</h5>
+                            <p class="card-text">Taste the Apricot Dream - A delightful seasonal creation.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card special-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">July 15, 2025</h5>
+                            <p class="card-text">Black Forest Gateau Bliss - Our signature dessert.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card special-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">July 14, 2025</h5>
+                            <p class="card-text">Vegetarian Delight Supreme - Farm-fresh vegetables.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">What Our Guests Say</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="testimonial">
+                        <p><i class="fas fa-quote-left me-2"></i> The flavors are exquisite! A true culinary delight. <i class="fas fa-quote-right ms-2"></i></p>
+                        <p class="mt-3 mb-0"><strong>Emily</strong>, Chef</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial">
+                        <p><i class="fas fa-quote-left me-2"></i> A beautiful ambiance with exceptional service. <i class="fas fa-quote-right ms-2"></i></p>
+                        <p class="mt-3 mb-0"><strong>David</strong>, Artist</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial">
+                        <p><i class="fas fa-quote-left me-2"></i> Savourie is my new favorite spot. Highly recommend! <i class="fas fa-quote-right ms-2"></i></p>
+                        <p class="mt-3 mb-0"><strong>Sarah</strong>, Writer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservations -->
+    <section id="reservations" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h2 class="card-title mb-4">Reserve Your Table</h2>
+                            <form id="reservationForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                                            <label for="name">Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" id="email" placeholder="Email" required>
+                                            <label for="email">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="date" class="form-control" id="date" required>
+                                            <label for="date">Date</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="time" class="form-control" id="time" required>
+                                            <label for="time">Time</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <select class="form-select" id="partySize" required>
+                                                <option value="" selected disabled>Select Party Size</option>
+                                                <option value="1">1 person</option>
+                                                <option value="2">2 people</option>
+                                                <option value="3">3 people</option>
+                                                <option value="4">4 people</option>
+                                                <option value="5">5 people</option>
+                                                <option value="6">6 people</option>
+                                                <option value="7+">7+ people</option>
+                                            </select>
+                                            <label for="partySize">Party Size</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary w-100"><i class="fas fa-calendar-check me-2"></i>Book Now</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+               <!-- Contact Section -->
+<section id="contact" class="py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <!-- Contact Info (left column) -->
+      <div class="col-md-6">
+        <h2 class="section-title">Contact Us</h2>
+        <p><i class="fas fa-map-marker-alt me-2"></i> 123 Main Street, Anytown, CA 91234</p>
+        <p><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</p>
+        <p><i class="fas fa-envelope me-2"></i> info@savourie.com</p>
+        <div class="mt-4">
+          <a href="#" class="me-3 text-dark"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="me-3 text-dark"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-dark"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+
+      <!-- Send a Message (right column) -->
+      <div class="col-md-6 mt-4 mt-md-0">
+        <h2 class="section-title">Send a Message</h2>
+        <form id="contactForm">
+          <div class="mb-3">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="contactName" placeholder=" " required>
+              <label for="contactName">Your Name</label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="form-floating">
+              <input type="email" class="form-control" id="contactEmail" placeholder=" " required>
+              <label for="contactEmail">Email</label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="form-floating">
+              <textarea class="form-control" id="message" placeholder=" " style="height: 120px" required></textarea>
+              <label for="message">Your Message</label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">
+            <i class="fas fa-paper-plane me-2"></i>Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-light pt-3 pb-2 mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h6 class="mb-2">Savourie Restaurant</h6>
+        <p class="mb-1 small">Culinary Excellence Since 2016</p>
+      </div>
+      <div class="col-md-4">
+        <h6 class="mb-2">Opening Hours</h6>
+        <p class="mb-1 small">Mon - Fri: 11am - 10pm</p>
+        <p class="mb-1 small">Sat - Sun: 10am - 11pm</p>
+      </div>
+      <div class="col-md-4">
+        <h6 class="mb-2">Connect With Us</h6>
+        <div class="social-icons">
+          <a href="#" class="me-2 text-light small"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="me-2 text-light small"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="me-2 text-light small"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="me-2 text-light small"><i class="fab fa-yelp"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr class="bg-light mt-2 mb-2">
+    <p class="mb-0 text-center small">© 2025 Savourie Restaurant. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login to Your Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="loginEmail" placeholder="Email" required>
+                                <label for="loginEmail">Email</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
+                                <label for="loginPassword">Password</label>
+                            </div>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Or sign up with:</p>
+                        
+                        <button class="btn btn-outline-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal">Email Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal with Form Validation -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create an Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm" novalidate>
+                        <div class="row g-3">
+                            <!-- Full Name Field -->
+                            <div class="col-md-6">
+                                <div class="form-floating position-relative">
+                                    <input type="text" class="form-control" id="registerName" placeholder="Full Name" required oninput="validateName()">
+                                    <label for="registerName">Full Name</label>
+                                    <div class="invalid-feedback" id="nameError"></div>
+                                    <div class="validation-icon valid-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="validation-icon invalid-icon"><i class="fas fa-times-circle"></i></div>
+                                </div>
+                                <div class="validation-message" id="nameValidation"></div>
+                            </div>
+                            <!-- Email Field -->
+                            <div class="col-md-6">
+                                <div class="form-floating position-relative">
+                                    <input type="email" class="form-control" id="registerEmail" placeholder="Email" required oninput="validateEmail()">
+                                    <label for="registerEmail">Email</label>
+                                    <div class="invalid-feedback" id="emailError"></div>
+                                    <div class="validation-icon valid-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="validation-icon invalid-icon"><i class="fas fa-times-circle"></i></div>
+                                </div>
+                                <div class="validation-message" id="emailValidation"></div>
+                            </div>
+                            <!-- Phone Number Field -->
+                            <div class="col-md-6">
+                                <div class="form-floating position-relative">
+                                    <input type="tel" class="form-control" id="registerPhone" placeholder="Phone Number" required oninput="validatePhone()">
+                                    <label for="registerPhone">Phone Number</label>
+                                    <div class="invalid-feedback" id="phoneError"></div>
+                                    <div class="validation-icon valid-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="validation-icon invalid-icon"><i class="fas fa-times-circle"></i></div>
+                                </div>
+                                <div class="validation-message" id="phoneValidation"></div>
+                            </div>
+                            <!-- Password Field -->
+                            <div class="col-md-6">
+                                <div class="form-floating position-relative">
+                                    <input type="password" class="form-control" id="registerPassword" placeholder="Password" required oninput="validatePassword()">
+                                    <label for="registerPassword">Password</label>
+                                    <div class="invalid-feedback" id="passwordError"></div>
+                                    <div class="validation-icon valid-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="validation-icon invalid-icon"><i class="fas fa-times-circle"></i></div>
+                                    <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+                                </div>
+                                <div class="password-strength">
+                                    <div class="password-strength-meter" id="passwordStrength"></div>
+                                </div>
+                                <div class="validation-message" id="passwordValidation"></div>
+                            </div>
+                            <!-- Confirm Password Field -->
+                            <div class="col-md-6">
+                                <div class="form-floating position-relative">
+                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required oninput="validateConfirmPassword()">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <div class="invalid-feedback" id="confirmPasswordError"></div>
+                                    <div class="validation-icon valid-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="validation-icon invalid-icon"><i class="fas fa-times-circle"></i></div>
+                                    <i class="fas fa-eye password-toggle" id="confirmPasswordToggle"></i>
+                                </div>
+                                <div class="validation-message" id="confirmPasswordValidation"></div>
+                            </div>
+                            <!-- Terms and Conditions -->
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="termsCheck" required onchange="validateTerms()">
+                                    <label class="form-check-label" for="termsCheck"> I agree to the <a href="#" class="text-decoration-none">Terms and Conditions</a> </label>
+                                    <div class="invalid-feedback" id="termsError"> You must agree to the terms and conditions. </div>
+                                </div>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-user-plus me-2"></i>Create Account
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        
+                       
+                        <!-- Removed Facebook button -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reset Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="forgotPasswordForm">
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="resetEmail" placeholder="Email" required>
+                                <label for="resetEmail">Email</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Send Reset Link</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize variables
+            let isLoggedIn = false;
+            let currentUser = null;
+
+            // Check if user is logged in from localStorage
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                isLoggedIn = true;
+                currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                updateAuthUI();
+            }
+
+            // Update UI based on login state
+            function updateAuthUI() {
+                const authButton = document.querySelector('.auth-button');
+                if (isLoggedIn && currentUser) {
+                    authButton.innerHTML = `<i class="fas fa-user-circle"></i> <span>${currentUser.name}</span>`;
+                    authButton.setAttribute('data-bs-toggle', '');
+                    authButton.setAttribute('data-bs-target', '');
+                    // Add a click listener to log out if the button is clicked when logged in
+                    authButton.removeEventListener('click', handleLoginRegisterClick); // Remove old listener
+                    authButton.addEventListener('click', handleLogoutClick); // Add new listener
+                } else {
+                    authButton.innerHTML = `<i class="fas fa-user-circle"></i> <span>Login / Register</span>`;
+                    authButton.setAttribute('data-bs-toggle', 'modal');
+                    authButton.setAttribute('data-bs-target', '#loginModal');
+                    authButton.removeEventListener('click', handleLogoutClick); // Remove logout listener
+                    authButton.addEventListener('click', handleLoginRegisterClick); // Re-add login/register listener
+                }
+            }
+
+            // Initial listener for the Login/Register button (before login state changes it)
+            const initialAuthButton = document.querySelector('.auth-button');
+            function handleLoginRegisterClick() {
+                // This function will simply open the login modal as defined by data-bs-toggle/target
+                // No custom logic needed here, as Bootstrap handles the modal opening.
+            }
+            initialAuthButton.addEventListener('click', handleLoginRegisterClick);
+
+
+            // Logout functionality
+            function handleLogoutClick(e) {
+                e.preventDefault();
+                isLoggedIn = false;
+                currentUser = null;
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('currentUser');
+                updateAuthUI();
+                showToast('Successfully logged out!', 'success');
+            }
+
+
+            // Show toast notification
+            function showToast(message, type = 'success') {
+                const toastContainer = document.querySelector('.toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast align-items-center text-white bg-${type} border-0`;
+                toast.setAttribute('role', 'alert');
+                toast.setAttribute('aria-live', 'assertive');
+                toast.setAttribute('aria-atomic', 'true');
+                toast.innerHTML = `
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            ${message}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                `;
+                toastContainer.appendChild(toast);
+                const bsToast = new bootstrap.Toast(toast, {
+                    autohide: true,
+                    delay: 3000
+                });
+                bsToast.show();
+                // Remove toast after it's hidden
+                toast.addEventListener('hidden.bs.toast', function() {
+                    toast.remove();
+                });
+            }
+
+            // Form Validation Logic for Registration Form
+            const registerForm = document.getElementById('registerForm');
+            const nameInput = document.getElementById('registerName');
+            const emailInput = document.getElementById('registerEmail');
+            const phoneInput = document.getElementById('registerPhone');
+            const passwordInput = document.getElementById('registerPassword');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const termsCheck = document.getElementById('termsCheck');
+
+            // Validation messages (already present in HTML)
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const phoneError = document.getElementById('phoneError');
+            const passwordError = document.getElementById('passwordError');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            const termsError = document.getElementById('termsError');
+
+            // Validation indicators (already present in HTML)
+            const nameValidation = document.getElementById('nameValidation');
+            const emailValidation = document.getElementById('emailValidation');
+            const phoneValidation = document.getElementById('phoneValidation');
+            const passwordValidation = document.getElementById('passwordValidation');
+            const confirmPasswordValidation = document.getElementById('confirmPasswordValidation');
+
+            // Password strength meter (already present in HTML)
+            const passwordStrength = document.getElementById('passwordStrength');
+
+            // Password visibility toggle (already present in HTML)
+            const passwordToggle = document.getElementById('passwordToggle');
+            const confirmPasswordToggle = document.getElementById('confirmPasswordToggle');
+
+            // Toggle password visibility
+            passwordToggle.addEventListener('click', function() {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    passwordToggle.classList.remove('fa-eye');
+                    passwordToggle.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    passwordToggle.classList.remove('fa-eye-slash');
+                    passwordToggle.classList.add('fa-eye');
+                }
+            });
+
+            confirmPasswordToggle.addEventListener('click', function() {
+                if (confirmPasswordInput.type === 'password') {
+                    confirmPasswordInput.type = 'text';
+                    confirmPasswordToggle.classList.remove('fa-eye');
+                    confirmPasswordToggle.classList.add('fa-eye-slash');
+                } else {
+                    confirmPasswordInput.type = 'password';
+                    confirmPasswordToggle.classList.remove('fa-eye-slash');
+                    confirmPasswordToggle.classList.add('fa-eye');
+                }
+            });
+
+            // Validation functions
+            function validateName() {
+                const name = nameInput.value.trim();
+                if (name.length === 0) {
+                    nameInput.classList.add('is-invalid');
+                    nameInput.classList.remove('is-valid');
+                    nameError.textContent = 'Full Name is required.';
+                    nameValidation.textContent = '';
+                    return false;
+                } else if (name.length < 5) {
+                    nameInput.classList.add('is-invalid');
+                    nameInput.classList.remove('is-valid');
+                    nameError.textContent = 'Name must be at least 5 characters long.';
+                    nameValidation.textContent = 'Name is too short.';
+                    nameValidation.className = 'validation-message validation-error';
+                    return false;
+                } else {
+                    nameInput.classList.add('is-valid');
+                    nameInput.classList.remove('is-invalid');
+                    nameError.textContent = '';
+                    nameValidation.textContent = 'Name looks good!';
+                    nameValidation.className = 'validation-message validation-success';
+                    return true;
+                }
+            }
+
+            function validateEmail() {
+                const email = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for basic email format validation
+                if (email.length === 0) {
+                    emailInput.classList.add('is-invalid');
+                    emailInput.classList.remove('is-valid');
+                    emailError.textContent = 'Email is required.';
+                    emailValidation.textContent = '';
+                    return false;
+                } else if (!email.includes('@')) { // Basic check for '@' character
+                    emailInput.classList.add('is-invalid');
+                    emailInput.classList.remove('is-valid');
+                    emailError.textContent = 'Email must contain an "@" symbol.';
+                    emailValidation.textContent = 'Invalid email format.';
+                    emailValidation.className = 'validation-message validation-error';
+                    return false;
+                } else if (!emailRegex.test(email)) { // More comprehensive regex check
+                    emailInput.classList.add('is-invalid');
+                    emailInput.classList.remove('is-valid');
+                    emailError.textContent = 'Please enter a valid email address.';
+                    emailValidation.textContent = 'Invalid email format.';
+                    emailValidation.className = 'validation-message validation-error';
+                    return false;
+                } else {
+                    emailInput.classList.add('is-valid');
+                    emailInput.classList.remove('is-invalid');
+                    emailError.textContent = '';
+                    emailValidation.textContent = 'Email looks good!';
+                    emailValidation.className = 'validation-message validation-success';
+                    return true;
+                }
+            }
+
+            function validatePhone() {
+                const phone = phoneInput.value.trim();
+                const phoneRegex = /^\d{10}$/; // Exactly 10 digits
+                if (phone.length === 0) {
+                    phoneInput.classList.add('is-invalid');
+                    phoneInput.classList.remove('is-valid');
+                    phoneError.textContent = 'Phone number is required.';
+                    phoneValidation.textContent = '';
+                    return false;
+                } else if (phone === '1234567890') { // Specific disallowed number
+                    phoneInput.classList.add('is-invalid');
+                    phoneInput.classList.remove('is-valid');
+                    phoneError.textContent = 'Phone number cannot be 1234567890.';
+                    phoneValidation.textContent = 'This phone number is not allowed.';
+                    phoneValidation.className = 'validation-message validation-error';
+                    return false;
+                } else if (!phoneRegex.test(phone)) { // Check for 10 digits
+                    phoneInput.classList.add('is-invalid');
+                    phoneInput.classList.remove('is-valid');
+                    phoneError.textContent = 'Phone number must be exactly 10 digits.';
+                    phoneValidation.textContent = 'Invalid phone number format.';
+                    phoneValidation.className = 'validation-message validation-error';
+                    return false;
+                } else {
+                    phoneInput.classList.add('is-valid');
+                    phoneInput.classList.remove('is-invalid');
+                    phoneError.textContent = '';
+                    phoneValidation.textContent = 'Phone number looks good!';
+                    phoneValidation.className = 'validation-message validation-success';
+                    return true;
+                }
+            }
+
+            function validatePassword() {
+                const password = passwordInput.value;
+                const name = nameInput.value.trim(); // Get current name value for comparison
+                let strength = 0;
+
+                // Reset password strength meter
+                passwordStrength.className = 'password-strength-meter';
+
+                if (password.length === 0) {
+                    passwordInput.classList.add('is-invalid');
+                    passwordInput.classList.remove('is-valid');
+                    passwordError.textContent = 'Password is required.';
+                    passwordValidation.textContent = '';
+                    return false;
+                } else if (password.length < 8) {
+                    passwordInput.classList.add('is-invalid');
+                    passwordInput.classList.remove('is-valid');
+                    passwordError.textContent = 'Password must be at least 8 characters long.';
+                    passwordValidation.textContent = 'Password is too short.';
+                    passwordValidation.className = 'validation-message validation-error';
+                    passwordStrength.classList.add('strength-weak');
+                    return false;
+                } else if (password.toLowerCase() === 'password') {
+                    passwordInput.classList.add('is-invalid');
+                    passwordInput.classList.remove('is-valid');
+                    passwordError.textContent = 'Password cannot be "password".';
+                    passwordValidation.textContent = 'Password is too common.';
+                    passwordValidation.className = 'validation-message validation-error';
+                    passwordStrength.classList.add('strength-weak');
+                    return false;
+                } else if (name && password.toLowerCase().includes(name.toLowerCase())) { // Check if password contains user's name
+                    passwordInput.classList.add('is-invalid');
+                    passwordInput.classList.remove('is-valid');
+                    passwordError.textContent = 'Password cannot contain your full name.';
+                    passwordValidation.textContent = 'Password contains personal info.';
+                    passwordValidation.className = 'validation-message validation-error';
+                    passwordStrength.classList.add('strength-weak');
+                    return false;
+                } else {
+                    // Calculate strength
+                    if (password.length >= 8) strength++;
+                    if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+                    if (password.match(/\d/)) strength++;
+                    if (password.match(/[^a-zA-Z\d]/)) strength++; // Special characters
+
+                    passwordInput.classList.remove('is-invalid');
+                    passwordError.textContent = '';
+
+                    if (strength <= 1) {
+                        passwordInput.classList.add('is-invalid'); // Still mark as invalid if very weak
+                        passwordValidation.textContent = 'Password strength: Weak.';
+                        passwordValidation.className = 'validation-message validation-error';
+                        passwordStrength.classList.add('strength-weak');
+                        return false; // Consider weak passwords as invalid for submission
+                    } else if (strength === 2) {
+                        passwordInput.classList.add('is-valid');
+                        passwordValidation.textContent = 'Password strength: Medium.';
+                        passwordValidation.className = 'validation-message';
+                        passwordStrength.classList.add('strength-medium');
+                        return true;
+                    } else {
+                        passwordInput.classList.add('is-valid');
+                        passwordValidation.textContent = 'Password strength: Strong!';
+                        passwordValidation.className = 'validation-message validation-success';
+                        passwordStrength.classList.add('strength-strong');
+                        return true;
+                    }
+                }
+            }
+
+            function validateConfirmPassword() {
+                const password = passwordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
+                if (confirmPassword.length === 0) {
+                    confirmPasswordInput.classList.add('is-invalid');
+                    confirmPasswordInput.classList.remove('is-valid');
+                    confirmPasswordError.textContent = 'Please confirm your password.';
+                    confirmPasswordValidation.textContent = '';
+                    return false;
+                } else if (confirmPassword !== password) {
+                    confirmPasswordInput.classList.add('is-invalid');
+                    confirmPasswordInput.classList.remove('is-valid');
+                    confirmPasswordError.textContent = 'Passwords do not match.';
+                    confirmPasswordValidation.textContent = 'Passwords do not match.';
+                    confirmPasswordValidation.className = 'validation-message validation-error';
+                    return false;
+                } else {
+                    confirmPasswordInput.classList.add('is-valid');
+                    confirmPasswordInput.classList.remove('is-invalid');
+                    confirmPasswordError.textContent = '';
+                    confirmPasswordValidation.textContent = 'Passwords match!';
+                    confirmPasswordValidation.className = 'validation-message validation-success';
+                    return true;
+                }
+            }
+
+            function validateTerms() {
+                if (!termsCheck.checked) {
+                    termsCheck.classList.add('is-invalid');
+                    termsCheck.classList.remove('is-valid');
+                    termsError.style.display = 'block';
+                    return false;
+                } else {
+                    termsCheck.classList.add('is-valid');
+                    termsCheck.classList.remove('is-invalid');
+                    termsError.style.display = 'none';
+                    return true;
+                }
+            }
+
+            // Event listeners for real-time validation on input change
+            nameInput.addEventListener('input', validateName);
+            emailInput.addEventListener('input', validateEmail);
+            phoneInput.addEventListener('input', validatePhone);
+            passwordInput.addEventListener('input', function() {
+                validatePassword(); // Validate password
+                validateConfirmPassword(); // Re-validate confirm password if password changes
+            });
+            confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+            termsCheck.addEventListener('change', validateTerms);
+
+            // Form submission validation for Registration Form
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent default form submission
+
+                // Validate all fields on submit
+                const isNameValid = validateName();
+                const isEmailValid = validateEmail();
+                const isPhoneValid = validatePhone();
+                const isPasswordValid = validatePassword();
+                const isConfirmPasswordValid = validateConfirmPassword();
+                const isTermsValid = validateTerms();
+
+                // Check if all validations pass
+                if (isNameValid && isEmailValid && isPhoneValid && isPasswordValid && isConfirmPasswordValid && isTermsValid) {
+                    // Simulate successful registration
+                    const name = nameInput.value;
+                    const email = emailInput.value;
+
+                    // Store user data (in a real app, this would be sent to a server)
+                    isLoggedIn = true;
+                    currentUser = {
+                        name,
+                        email
+                    };
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+                    // Update UI
+                    updateAuthUI();
+
+                    // Close modal
+                    const registerModal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+                    registerModal.hide();
+
+                    // Show success message
+                    showToast('Account created successfully! Welcome, ' + name + '!', 'success');
+
+                    // Reset form
+                    registerForm.reset();
+                    // Reset validation styles and messages after successful submission
+                    document.querySelectorAll('.form-control').forEach(input => {
+                        input.classList.remove('is-valid', 'is-invalid');
+                    });
+                    document.querySelectorAll('.validation-message').forEach(msg => {
+                        msg.textContent = '';
+                        msg.className = 'validation-message'; // Reset class
+                    });
+                    document.querySelectorAll('.invalid-feedback').forEach(msg => {
+                        msg.textContent = '';
+                    });
+                    passwordStrength.className = 'password-strength-meter'; // Reset strength meter
+                    termsError.style.display = 'none'; // Hide terms error
+                } else {
+                    // Show error message if any validation fails
+                    showToast('Please fix the errors in the form to create your account.', 'error');
+                }
+            });
+
+            // Registration form submission
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                
+                if (name && email && password) {
+                    localStorage.setItem('currentUser', JSON.stringify({
+                        name: name,
+                        email: email
+                    }));
+                    localStorage.setItem('isLoggedIn', 'true');
+                    updateAuthUI();
+                    bootstrap.Modal.getInstance(document.getElementById('registerModal')).hide();
+                    showToast('Registration successful! Welcome ' + name + '!', 'success');
+                } else {
+                    showToast('Please fill all fields', 'error');
+                }
+            });
+
+            // Login form submission
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+
+                // Simple validation (in a real app, this would check against a database)
+                if (email && password) {
+                    // Simulate successful login
+                    isLoggedIn = true;
+                    currentUser = {
+                        name: email.split('@')[0],
+                        email
+                    }; // Use part of email as name for demo
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateAuthUI();
+                    showToast('Successfully logged in!', 'success');
+                    // Close modal
+                    const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+                    loginModal.hide();
+                } else {
+                    // Show error message
+                    showToast('Please enter both email and password.', 'error');
+                }
+            });
+
+            // Forgot password form submission
+            document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('resetEmail').value;
+                if (email) {
+                    // Simulate password reset email
+                    showToast('Password reset link sent to your email.', 'success');
+                    // Close modal
+                    const forgotModal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+                    forgotModal.hide();
+                } else {
+                    showToast('Please enter your email.', 'error');
+                }
+            });
+
+            // Reservation form submission
+            document.getElementById('reservationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (!isLoggedIn) {
+                    showToast('Please login to make a reservation.', 'error');
+                    return;
+                }
+                const name = document.getElementById('name').value;
+                const date = document.getElementById('date').value;
+                const time = document.getElementById('time').value;
+                const partySize = document.getElementById('partySize').value;
+                showToast(`Reservation confirmed for ${name} on ${date} at ${time} for ${partySize} people!`, 'success');
+                this.reset();
+            });
+
+            // Contact form submission
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showToast('Your message has been sent. We\'ll get back to you soon!', 'success');
+                this.reset();
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') !== '#' && !this.getAttribute('data-bs-toggle')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 70, // Adjust for fixed navbar height
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
